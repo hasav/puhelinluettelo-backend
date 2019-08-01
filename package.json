@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon index.js"
+    "watch": "nodemon index.js",
+    "deploy": "git push heroku master",
+    "deploy:semi": "git add . && git commit -m buid && npm run deploy"
   },
   "author": "ville",
   "license": "ISC",
