@@ -1,8 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
+const Person = require('./models/person')
 
 app.use(bodyParser.json())
 app.use(morgan('tiny'))
@@ -33,8 +35,11 @@ let persons = [
 
 ]
 
+
 app.get('/api/persons', (req, res) => {
-    res.json(persons)
+    Person.find({}).then(persons => {
+        res.json((persons.map(person => person.toJSON())))
+    })
 })
 
 app.get('/info', (req, res) => {
@@ -69,7 +74,7 @@ const generateId = () => {
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
-    if (!body.name) {
+    if (body.name === undefined) {
         return res.status(400).json({
             error: 'name missing'
         })
@@ -79,15 +84,16 @@ app.post('/api/persons', (req, res) => {
             error: 'name must be unique'
         })
     }
-    const person = {
+    const person = new Person({
         name: body.name,
-        number: body.number,
-        id: generateId()
-    }
-    persons = persons.concat(person)
-    res.json(person)
+        number: body.number
+    })
+
+    person.save().then(savedPerson => {
+        res.json(savedPerson.toJSON())
+    })
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT)
 console.log(`Server is running on port ${PORT}`)
