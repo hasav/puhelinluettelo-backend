@@ -11,30 +11,6 @@ app.use(bodyParser.json())
 app.use(morgan('tiny'))
 app.use(cors())
 
-/*let persons = [
-    {
-        name: "Arto Hellas",
-        number: "040-123456",
-        id: 1
-    },
-    {
-        name: "Ada Lovelace",
-        number: "39-44-5323523",
-        id: 2
-    },
-    {
-        name: "Dan Ambramov",
-        number: "12-43-234345",
-        id: 3
-    },
-    {
-        name: "Mary Poppendieck",
-        number: "39-23-6423122",
-        id: 4
-    }
-
-]
-*/
 
 app.get('/api/persons', (req, res) => {
     Person.find({}).then(persons => {
@@ -103,12 +79,6 @@ app.post('/api/persons', (req, res) => {
         }
     })
     
-    /*if (persons.some(person => person.name === body.name)) {
-        return res.status(400).json({
-            error: 'name must be unique'
-        })
-    }
-    */
 
 })
 
