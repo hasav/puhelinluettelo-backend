@@ -11,11 +11,13 @@
     "deploy:semi": "git add . && git commit -m buid && npm run deploy",
     "build:ui": "rmdir /q /s build && mkdir build && cd /Users/Ville/Documents/Fullstack/osa2/puhelinluettelo && npm run build --prod && xcopy build C:\\Users\\Ville\\Documents\\puhelinluettelo\\build /s /e",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "author": "ville",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^6.3.0",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
